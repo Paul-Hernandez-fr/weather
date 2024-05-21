@@ -2,31 +2,21 @@ import { getWeekDay, getTime, getAMPM } from "../services/helpers";
 import styles from "./DateAndTime.module.css";
 
 export const DateAndTime = ({ weatherData, unitSystem }) => {
+  const time = weatherData.current_weather?.time;
+  const timezone = weatherData.timezone;
+
+  if (!time || !timezone) {
+    return <div className={styles.wrapper}>Invalid date/time</div>;
+  }
+
   return (
     <div className={styles.wrapper}>
       <h2>
-        {`${getWeekDay(weatherData)}, ${getTime(
+        {`${getWeekDay(time, timezone)}, ${getTime(
           unitSystem,
-          weatherData.dt,
-          weatherData.timezone_offset
-        )} ${getAMPM(unitSystem, weatherData.dt, weatherData.timezone_offset)}`}
-      </h2>
-    </div>
-  );
-};
-
-import { getWeekDay, getTime, getAMPM } from "../services/helpers";
-import styles from "./DateAndTime.module.css";
-
-export const DateAndTime = ({ weatherData, unitSystem }) => {
-  return (
-    <div className={styles.wrapper}>
-      <h2>
-        {`${getWeekDay(weatherData)}, ${getTime(
-          unitSystem,
-          weatherData.dt,
-          weatherData.timezone
-        )} ${getAMPM(unitSystem, weatherData.dt, weatherData.timezone)}`}
+          time,
+          timezone
+        )} ${getAMPM(unitSystem, time, timezone)}`}
       </h2>
     </div>
   );
