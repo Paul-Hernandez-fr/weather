@@ -10,7 +10,7 @@ export const MainCard = ({
   unitSystem,
   weatherData,
 }) => {
-  // Vérifiez si weatherData et les propriétés nécessaires sont définies
+  
   const temperature = weatherData?.current_weather?.temperature || 0;
   const feelsLike = weatherData?.current_weather?.feelslike || 0;
 

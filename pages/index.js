@@ -17,7 +17,7 @@ const Home = () => {
     try {
       const response = await fetch("/api/data?city=lyon");
       const data = await response.json();
-      console.log(data); // Vérifiez la structure des données
+      console.log(data); 
       setWeatherData(data);
     } catch (error) {
       console.error("Erreur lors de la récupération des données météo:", error);
@@ -25,9 +25,9 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchWeatherData(); // Récupère les données au montage
-    const intervalId = setInterval(fetchWeatherData, 3600000); // Rafraîchit toutes les heures (3600000 ms)
-    return () => clearInterval(intervalId); // Nettoie l'intervalle lors du démontage
+    fetchWeatherData(); 
+    const intervalId = setInterval(fetchWeatherData, 3600000); 
+    return () => clearInterval(intervalId); 
   }, []);
 
   const changeSystem = () => {
@@ -36,7 +36,7 @@ const Home = () => {
 
   if (!weatherData) return <LoadingScreen loadingMessage="Loading data..." />;
 
-  // Ajout de vérifications pour éviter les erreurs
+  
   const description =
     weatherData.current_weather?.weather_descriptions?.[0] ||
     "No description available";
