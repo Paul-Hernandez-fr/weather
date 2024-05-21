@@ -13,7 +13,7 @@ export const getVisibility = (unitSystem, visibilityInMeters) =>
     ? (visibilityInMeters / 1000).toFixed(1)
     : kmToMiles(visibilityInMeters / 1000);
 
-export const getTime = (unitSystem, currentTime, timezone) => {
+export const getTime = (currentTime, timezone) => {
   if (!currentTime || !timezone) return "Invalid time";
   const date = new Date(`${currentTime} ${timezone}`);
   if (isNaN(date.getTime())) return "Invalid time";
@@ -23,7 +23,7 @@ export const getTime = (unitSystem, currentTime, timezone) => {
   });
 };
 
-export const getAMPM = (unitSystem, currentTime, timezone) => {
+export const getAMPM = (currentTime, timezone) => {
   if (!currentTime || !timezone) return "";
   const date = new Date(`${currentTime} ${timezone}`);
   if (isNaN(date.getTime())) return "";

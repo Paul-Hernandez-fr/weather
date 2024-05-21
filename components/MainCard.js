@@ -10,9 +10,11 @@ export const MainCard = ({
   unitSystem,
   weatherData,
 }) => {
-  
   const temperature = weatherData?.current_weather?.temperature || 0;
   const feelsLike = weatherData?.current_weather?.feelslike || 0;
+
+  
+  const iconSrc = `/icons/${iconName}.svg`;
 
   return (
     <div className={styles.wrapper}>
@@ -23,7 +25,7 @@ export const MainCard = ({
       <Image
         width="300px"
         height="300px"
-        src={`/icons/${iconName}.svg`}
+        src={iconSrc}
         alt="weatherIcon"
         onError={(e) => {
           e.target.onerror = null;
@@ -31,17 +33,17 @@ export const MainCard = ({
         }}
       />
       <h1 className={styles.temperature}>
-        {unitSystem == "metric"
+        {unitSystem === "metric"
           ? Math.round(temperature)
           : Math.round(ctoF(temperature))}
-        °{unitSystem == "metric" ? "C" : "F"}
+        °{unitSystem === "metric" ? "C" : "F"}
       </h1>
       <p>
         Feels like{" "}
-        {unitSystem == "metric"
+        {unitSystem === "metric"
           ? Math.round(feelsLike)
           : Math.round(ctoF(feelsLike))}
-        °{unitSystem == "metric" ? "C" : "F"}
+        °{unitSystem === "metric" ? "C" : "F"}
       </p>
     </div>
   );
