@@ -17,7 +17,7 @@ const Home = () => {
     try {
       const response = await fetch("/api/data?city=lyon");
       const data = await response.json();
-      console.log(data); 
+      console.log(data); // Vérifiez la structure des données
       setWeatherData(data);
     } catch (error) {
       console.error("Erreur lors de la récupération des données météo:", error);

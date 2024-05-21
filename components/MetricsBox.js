@@ -13,8 +13,18 @@ export const MetricsBox = ({ weatherData, unitSystem }) => {
   const windSpeed = currentWeather.windspeed || 0;
   const windDirection = currentWeather.winddirection || 0;
   const visibility = currentWeather.visibility || 0;
-  const sunrise = weatherData.daily?.sunrise?.[0] || 0;
-  const sunset = weatherData.daily?.sunset?.[0] || 0;
+  const sunrise = weatherData.daily?.sunrise?.[0];
+  const sunset = weatherData.daily?.sunset?.[0];
+
+  const formatTime = (timeString) => {
+    if (!timeString) return "Invalid time";
+    const date = new Date(timeString);
+    if (isNaN(date.getTime())) return "Invalid time";
+    return date.toLocaleTimeString("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -50,14 +60,12 @@ export const MetricsBox = ({ weatherData, unitSystem }) => {
       <MetricsCard
         title={"Lever du soleil"}
         iconSrc={"/icons/sunrise.png"}
-        metric={getTime(unitSystem, sunrise, weatherData.timezone)}
-        unit={getAMPM(unitSystem, sunrise, weatherData.timezone)}
+        metric={formatTime(sunrise)}
       />
       <MetricsCard
         title={"Coucher du soleil"}
         iconSrc={"/icons/sunset.png"}
-        metric={getTime(unitSystem, sunset, weatherData.timezone)}
-        unit={getAMPM(unitSystem, sunset, weatherData.timezone)}
+        metric={formatTime(sunset)}
       />
     </div>
   );

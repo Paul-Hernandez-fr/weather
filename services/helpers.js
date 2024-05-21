@@ -14,17 +14,21 @@ export const getVisibility = (unitSystem, visibilityInMeters) =>
     : kmToMiles(visibilityInMeters / 1000);
 
 export const getTime = (unitSystem, currentTime, timezone) => {
-  console.log("getTime - currentTime:", currentTime, "timezone:", timezone);
   if (!currentTime || !timezone) return "Invalid time";
-  return unixToLocalTime(currentTime, timezone);
+  const date = new Date(`${currentTime} ${timezone}`);
+  if (isNaN(date.getTime())) return "Invalid time";
+  return date.toLocaleTimeString("fr-FR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 };
 
-export const getAMPM = (unitSystem, currentTime, timezone) =>
-  unitSystem === "imperial" && currentTime
-    ? new Date(currentTime * 1000).getHours() >= 12
-      ? "PM"
-      : "AM"
-    : "";
+export const getAMPM = (unitSystem, currentTime, timezone) => {
+  if (!currentTime || !timezone) return "";
+  const date = new Date(`${currentTime} ${timezone}`);
+  if (isNaN(date.getTime())) return "";
+  return date.getHours() >= 12 ? "PM" : "AM";
+};
 
 export const getWeekDay = (unixTime, timezone) => {
   if (!unixTime || !timezone) return "Invalid date";
